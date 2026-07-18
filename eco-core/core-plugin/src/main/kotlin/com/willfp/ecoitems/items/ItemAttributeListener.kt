@@ -59,6 +59,7 @@ object ItemAttributeListener : Listener {
 
         val damageInst = player.getAttribute(Attribute.ATTACK_DAMAGE) ?: return
         val speedInst = player.getAttribute(Attribute.ATTACK_SPEED) ?: return
+        val rangeInst = player.getAttribute(Attribute.ENTITY_INTERACTION_RANGE) ?: return
 
         damageInst.modifiers.filter { it.isFromEcoItems }.forEach {
             damageInst.removeModifier(it)
@@ -66,6 +67,10 @@ object ItemAttributeListener : Listener {
 
         speedInst.modifiers.filter { it.isFromEcoItems }.forEach {
             speedInst.removeModifier(it)
+        }
+
+        rangeInst.modifiers.filter { it.isFromEcoItems }.forEach {
+            rangeInst.removeModifier(it)
         }
 
         for ((offset, item) in items.withIndex()) {
@@ -86,6 +91,15 @@ object ItemAttributeListener : Listener {
                     offset
                 )
             }
+
+            if (item.baseAttackRange != null) {
+                rangeInst.addCompatibleModifier(
+                    "Range",
+                    // Consistent with the effective-value approach used for damage/speed above.
+                    item.baseAttackRange - rangeInst.value,
+                    offset
+                )
+            }
         }
     }
 
@@ -93,12 +107,14 @@ object ItemAttributeListener : Listener {
         get() {
             if (this.name.startsWith("EcoItems Damage", true)
                 || this.name.startsWith("EcoItems Speed", true)
+                || this.name.startsWith("EcoItems Range", true)
             ) {
                 return true
             }
 
             return this.key.namespace == "ecoitems" && (this.key.key.startsWith("damage")
-                    || this.key.key.startsWith("speed"))
+                    || this.key.key.startsWith("speed")
+                    || this.key.key.startsWith("range"))
         }
 
     private fun AttributeInstance.addCompatibleModifier(
