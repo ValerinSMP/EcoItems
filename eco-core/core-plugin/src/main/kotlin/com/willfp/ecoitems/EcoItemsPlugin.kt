@@ -35,10 +35,11 @@ class EcoItemsPlugin : LibreforgePlugin() {
     override fun handleEnable() {
         Items.registerArgParser(ArgParserRarity)
         Items.registerTag(EcoItemTag)
-
-        Conditions.register(ConditionHasEcoItem)
-
         registerHolderProvider(EcoItemFinder.toHolderProvider())
+    }
+
+    override fun handleLoad() {
+        Conditions.register(ConditionHasEcoItem)
     }
 
     override fun loadConfigCategories(): List<ConfigCategory> {
