@@ -47,13 +47,11 @@ var FastItemStack.ecoItem: EcoItem?
     }
 
 private fun Material.defaultAddNumberSum(attribute: Attribute): Double =
-    EquipmentSlot.values().sumOf { slot ->
-        runCatching { getDefaultAttributeModifiers(slot).get(attribute) }
-            .getOrNull()
-            ?.filter { it.operation == AttributeModifier.Operation.ADD_NUMBER }
-            ?.sumOf { it.amount }
-            ?: 0.0
-    }
+    runCatching { getDefaultAttributeModifiers(EquipmentSlot.HAND).get(attribute) }
+        .getOrNull()
+        ?.filter { it.operation == AttributeModifier.Operation.ADD_NUMBER }
+        ?.sumOf { it.amount }
+        ?: 0.0
 
 val Material.attackDamageModifier: Double
     get() = defaultAddNumberSum(Attribute.ATTACK_DAMAGE)

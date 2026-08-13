@@ -31,18 +31,8 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.8-R0.1-SNAPSHOT")
 }
 
-tasks {
-    compileKotlin {
-        dependsOn(generateBuildConfig)
-    }
-
-    sourcesJar {
-        dependsOn(generateBuildConfig)
-    }
-
-    build {
-        dependsOn(publishToMavenLocal)
-    }
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    dependsOn(generateBuildConfig)
 }
 
 publishing {

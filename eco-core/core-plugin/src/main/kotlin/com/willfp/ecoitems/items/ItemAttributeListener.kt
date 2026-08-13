@@ -13,14 +13,16 @@ import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.player.PlayerItemHeldEvent
 import org.bukkit.inventory.EquipmentSlotGroup
 
+private const val PLAYER_BASE_ATTACK_DAMAGE = 1.0
+private const val PLAYER_BASE_ATTACK_SPEED = 4.0
+private const val PLAYER_BASE_ENTITY_INTERACTION_RANGE = 3.0
+
 object ItemAttributeListener : Listener {
     @EventHandler
     fun handle(event: PlayerItemHeldEvent) {
         if (event.isCancelled) {
             return
         }
-
-        apply(event.player)
 
         plugin.scheduler.run { apply(event.player) }
     }
@@ -37,7 +39,6 @@ object ItemAttributeListener : Listener {
 
         plugin.scheduler.run { apply(event.player) }
     }
-
 
     @EventHandler
     fun handlePickup(event: EntityPickupItemEvent) {
@@ -74,11 +75,16 @@ object ItemAttributeListener : Listener {
         }
 
         for ((offset, item) in items.withIndex()) {
+            val baselineMaterial = if (player.inventory.itemInMainHand.type == item.itemStack.type) {
+                player.inventory.itemInMainHand.type
+            } else {
+                player.inventory.itemInOffHand.type
+            }
+
             if (item.baseDamage != null) {
                 damageInst.addCompatibleModifier(
                     "Damage",
-                    // Set final value robustly even if the held item has hidden/default modifiers.
-                    item.baseDamage - damageInst.value,
+                    item.baseDamage - PLAYER_BASE_ATTACK_DAMAGE - baselineMaterial.attackDamageModifier,
                     offset
                 )
             }
@@ -86,8 +92,7 @@ object ItemAttributeListener : Listener {
             if (item.baseAttackSpeed != null) {
                 speedInst.addCompatibleModifier(
                     "Speed",
-                    // Prevent "stuck cooldown" by correcting from the current effective value.
-                    item.baseAttackSpeed - speedInst.value,
+                    item.baseAttackSpeed - PLAYER_BASE_ATTACK_SPEED - baselineMaterial.attackSpeedModifier,
                     offset
                 )
             }
@@ -95,8 +100,7 @@ object ItemAttributeListener : Listener {
             if (item.baseAttackRange != null) {
                 rangeInst.addCompatibleModifier(
                     "Range",
-                    // Consistent with the effective-value approach used for damage/speed above.
-                    item.baseAttackRange - rangeInst.value,
+                    item.baseAttackRange - PLAYER_BASE_ENTITY_INTERACTION_RANGE - baselineMaterial.entityInteractionRangeModifier,
                     offset
                 )
             }
