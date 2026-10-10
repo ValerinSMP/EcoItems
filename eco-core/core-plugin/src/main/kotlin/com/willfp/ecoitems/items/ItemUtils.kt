@@ -2,6 +2,8 @@ package com.willfp.ecoitems.items
 
 import com.willfp.eco.core.fast.FastItemStack
 import com.willfp.eco.core.fast.fast
+import com.willfp.eco.util.toComponent
+import com.willfp.eco.util.toLegacy
 import com.willfp.eco.util.namespacedKeyOf
 import org.bukkit.Material
 import org.bukkit.attribute.Attribute
@@ -61,3 +63,5 @@ val Material.attackSpeedModifier: Double
 
 val Material.entityInteractionRangeModifier: Double
     get() = defaultAddNumberSum(Attribute.ENTITY_INTERACTION_RANGE)
+
+internal fun String.normalizeFormatting(): String = toComponent().toLegacy()

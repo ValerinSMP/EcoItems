@@ -8,6 +8,7 @@ import com.willfp.eco.core.fast.fast
 import com.willfp.eco.core.placeholder.context.placeholderContext
 import com.willfp.eco.util.StringUtils
 import com.willfp.eco.util.formatEco
+import com.willfp.ecoitems.items.normalizeFormatting
 import com.willfp.ecoitems.items.ecoItem
 import com.willfp.ecoitems.plugin
 import com.willfp.libreforge.ItemProvidedHolder
@@ -47,7 +48,7 @@ object ItemsDisplay : DisplayModule(plugin, DisplayPriority.LOWEST) {
 
         if (ecoItem.displayName != null) {
             val formatted = ecoItem.displayName.formatEco(context)
-            if (fis.displayName != formatted) {
+            if (fis.displayName?.normalizeFormatting() != formatted.normalizeFormatting()) {
                 fis.displayName = formatted
             }
         }
