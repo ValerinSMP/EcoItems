@@ -30,6 +30,8 @@ internal lateinit var plugin: EcoItemsPlugin
 class EcoItemsPlugin : LibreforgePlugin() {
     init {
         plugin = this
+        onReload { ItemAttributeListener.refreshAll() }
+        onDisable { ItemAttributeListener.stop() }
     }
 
     override fun handleEnable() {

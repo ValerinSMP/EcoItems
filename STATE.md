@@ -1,14 +1,9 @@
 # EcoItems — estado
 
-- Fuente canónica: personal `/root/development/projects/eco-suite/EcoItems`. HomeSV conserva la referencia sin editar. Original comparado: `upstream-review/main`, SHA en `upstream-differences-final.json`; sin merge, checkout o actualización completa.
-- Tarea autorizada: las ocho prioridades pendientes (3–10) y las dos funciones de EcoArmor, solo Test.
-- Modificado: Normalización nativa de formato para comparar nombres; conserva display legado, food/tools, atributos y recetas. No importa la arquitectura completa nueva de bloques/muebles/resource pack.
-- Archivos: código/configuración de fuente y tests nativos del cambio; inventario exacto en git-final.json. DEVELOPMENT_HANDOFF.md ajeno/no versionado preservado.
-- Compilado: sí, ejecutor personal 2 CPU/4 GiB/sin swap, una build, Gradle Wrapper original, un worker y Kotlin en proceso. Toolchains/release por módulo conservados. Eco/EcoEnchants/EcoSkills utilizan la opción nativa `paperweight.experimental.genSources=false`, que evita generar fuentes auxiliares y conserva los adaptadores.
-- Probado: 0 pruebas JVM, 0 fallos, 0 errores, 0 omitidas. Suite total 200. EcoItems no tiene tests propios. No es medición de rendimiento ni prueba en Minecraft de las funciones nuevas.
-- Dependencias: eco/LibreForge propios en Maven aislado; versiones/hashes resueltos en los manifests de la tarea. La recompilación final de LibreForge conserva todas las clases usadas por consumidores; solo cambia CRLF del mismo config.yml (libreforge-final-abi.json). Loader y bibliotecas empaquetadas preservados.
-- Instalado: sí, únicamente Test `/var/lib/pterodactyl/volumes/f2ea450e-02a0-416c-9838-e73458d37b1c/plugins/EcoItems-2026.27-all.jar`, SHA256 `9b016bcce18296753c486106d48665d0ee2330bf4e077e8de8e14e3c1e1c5d01`. Hash en disco verificado; dueño/modo preservados.
-- Respaldo verificado: `/mnt/storage/backups/ai/survival-custom/ecosuite-upstream-remaining-20261010-test/`. Anterior SHA256 `b0d603326e0754abfc6d87ddf7c84f260c6343c56ada46a2676471ff0c9e21b3`. Manifest y reversión junto al respaldo; staging/evidencia en `/home/mtyn/staging/survival-custom/eco-upstream-remaining-20261010/`.
-- Activo Test: inicio de los siete plugins observado en latest.log y hashes instalados coincidentes. Gameplay: el propietario informa «funciona todo»; aceptación básica de la entrega, sin registro individual de todas las pruebas dirigidas. El agente nunca reinicia ni recarga, incluido Test. No se ejecutó lifecycle, BD ni pack; no se editaron YAML vivos. Custom/Sync no instalados/modificados; los 14 JAR productivos conservaron sus hashes al verificar la entrega.
-- Siguiente paso: entrega aceptada de forma básica en Test. Candidato siguiente: revisión acotada de homing usado por el Arco de Enderita, todavía sin aplicar. Custom/Sync y transferencia requieren autorización futura; Test 1.21.11 observado, Minecraft 26.2 no probado en juego.
-- Git: cierre de cambios propios autorizado tras aceptación en Test. Resultado de commit/push normal en git-closeout.json; restauraciones preexistentes bajo target y DEVELOPMENT_HANDOFF.md se mantienen fuera del commit.
+- Fuente canónica: personal `/root/development/projects/eco-suite/EcoItems`, rama `valerin`. HomeSV referencia intacta. `DEVELOPMENT_HANDOFF.md` ajeno conservado.
+- Modificado: atributos de armas calculados desde equipo real; actualizaciones por eventos agrupadas por jugador/tick; retirada y sustitución sin acumulación; limpieza al recargar/deshabilitar. Sin polling ni cálculos nuevos por golpe.
+- Compilado: sí, wrapper/toolchain upstream, ejecutor personal limitado. Nueve pruebas JVM correctas; no benchmark ni reproducción de los tickets.
+- Instalado: candidato solo Test, SHA256 `e3636d3b6836b3630459dca3aabcf622a68a162c3cade41d7ecbc348aadd9fb1`. Cinco clases sustituidas sobre su runtime original; demás contenido idéntico.
+- Respaldo: `/mnt/storage/backups/ai/survival-custom/ecoitems-weapon-attributes-20261011T210540Z`, hash anterior verificado.
+- Activo: no activado por el agente. No restart/reload, incluido Test. Custom/Sync intactos, SHA256 `b0d603326e0754abfc6d87ddf7c84f260c6343c56ada46a2676471ff0c9e21b3`.
+- Pendiente: propietario activa Test y prueba cambios de armas, inventario, reconexión y recarga. Detalles: `docs/WEAPON-ATTRIBUTES.md`.

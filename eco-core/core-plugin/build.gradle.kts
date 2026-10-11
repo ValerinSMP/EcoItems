@@ -60,3 +60,11 @@ publishing {
         }
     }
 }
+
+dependencies {
+    testImplementation("org.mockito:mockito-core:5.20.0")
+    testImplementation("io.papermc.paper:paper-api:1.21.8-R0.1-SNAPSHOT")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.13.4")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+tasks.test { useJUnitPlatform() }
